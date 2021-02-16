@@ -15,7 +15,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include <maincontent/controlwidget/bannacontrol/bannawidget.h>
-#include <maincontent/controlwidget/plotcontrol/plotwidget.h>
+#include <maincontent/controlwidget/radarcontrol/radarcontrol.h>
 #include <maincontent/controlwidget/tablecontrol/tablewidget.h>
 
 QT_BEGIN_NAMESPACE
@@ -26,7 +26,7 @@ public:
     QVBoxLayout *verticalLayout;
     QTabWidget *tabWidgetControl;
     BannaWidget *banana;
-    PlotWidget *tabPlot;
+    RadarControl *radar;
     TableWidget *tabTableWidget;
 
     void setupUi(QWidget *ControlTabWidget)
@@ -42,9 +42,9 @@ public:
         banana = new BannaWidget();
         banana->setObjectName(QString::fromUtf8("banana"));
         tabWidgetControl->addTab(banana, QString());
-        tabPlot = new PlotWidget();
-        tabPlot->setObjectName(QString::fromUtf8("tabPlot"));
-        tabWidgetControl->addTab(tabPlot, QString());
+        radar = new RadarControl();
+        radar->setObjectName(QString::fromUtf8("tabPlot"));
+        tabWidgetControl->addTab(radar, QString());
         tabTableWidget = new TableWidget();
         tabTableWidget->setObjectName(QString::fromUtf8("tabTableWidget"));
         tabWidgetControl->addTab(tabTableWidget, QString());
@@ -64,7 +64,7 @@ public:
     {
         ControlTabWidget->setWindowTitle(QCoreApplication::translate("ControlTabWidget", "Form", nullptr));
         tabWidgetControl->setTabText(tabWidgetControl->indexOf(banana), QCoreApplication::translate("ControlTabWidget", "\344\270\273\351\241\265", nullptr));
-        tabWidgetControl->setTabText(tabWidgetControl->indexOf(tabPlot), QCoreApplication::translate("ControlTabWidget", " \347\233\221\346\216\247\344\270\255\345\277\203", nullptr));
+        tabWidgetControl->setTabText(tabWidgetControl->indexOf(radar), QCoreApplication::translate("ControlTabWidget", " \347\233\221\346\216\247\344\270\255\345\277\203", nullptr));
         tabWidgetControl->setTabText(tabWidgetControl->indexOf(tabTableWidget), QCoreApplication::translate("ControlTabWidget", "\350\256\276\347\275\256", nullptr));
     } // retranslateUi
 

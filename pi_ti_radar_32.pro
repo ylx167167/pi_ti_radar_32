@@ -1,10 +1,11 @@
 QT += core gui widgets network
+QT += core serialport
 QT += widgets
 QT += printsupport
+#QT+=opengl
 CONFIG   += console
 CONFIG   += c++11
-
-#LIBS += -lOpenGL32
+LIBS += -lOpenGL32
 #greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
@@ -23,6 +24,7 @@ DEFINES += QCUSTOMPLOT_USE_OPENGL
 
 
 SOURCES +=main.cpp\
+    dialogsetting/dialogsettings.cpp \
     flowlayout/flowlayout.cpp \
     maincontent/controltabwidget.cpp \
     maincontent/controltreewidget.cpp \
@@ -44,12 +46,11 @@ SOURCES +=main.cpp\
     maincontent/controlwidget/openglcontrol/openglwidget.cpp \
     maincontent/controlwidget/openglcontrol/shaderlibrary.cpp \
     maincontent/controlwidget/openglcontrol/texturelibrary.cpp \
-    maincontent/controlwidget/plotcontrol/plotcontrol.cpp \
-    maincontent/controlwidget/plotcontrol/plotwidget.cpp \
     maincontent/controlwidget/processcontrol/processcontrol.cpp \
     maincontent/controlwidget/processcontrol/processwidget.cpp \
     maincontent/controlwidget/progresscontrol/progresscontrol.cpp \
     maincontent/controlwidget/progresscontrol/progresswidget.cpp \
+    maincontent/controlwidget/radarcontrol/radarcontrol.cpp \
     maincontent/controlwidget/slidercontrol/slidercontrol.cpp \
     maincontent/controlwidget/slidercontrol/sliderwidget.cpp \
     maincontent/controlwidget/tablecontrol/tablecontrol.cpp \
@@ -64,6 +65,7 @@ SOURCES +=main.cpp\
     titlebar/titlebar.cpp
 
 FORMS += maincontent/controltabwidget.ui \
+    dialogsetting/dialogsettings.ui \
     maincontent/controltreewidget.ui \
     maincontent/controlwidget/bannacontrol/bannacontrol.ui \
     maincontent/controlwidget/bannacontrol/bannawidget.ui \
@@ -75,12 +77,11 @@ FORMS += maincontent/controltabwidget.ui \
     maincontent/controlwidget/movecontrol/movecontrol.ui \
     maincontent/controlwidget/movecontrol/movewidget.ui \
     maincontent/controlwidget/openglcontrol/openglwidget.ui \
-    maincontent/controlwidget/plotcontrol/plotcontrol.ui \
-    maincontent/controlwidget/plotcontrol/plotwidget.ui \
     maincontent/controlwidget/processcontrol/processcontrol.ui \
     maincontent/controlwidget/processcontrol/processwidget.ui \
     maincontent/controlwidget/progresscontrol/progresscontrol.ui \
     maincontent/controlwidget/progresscontrol/progresswidget.ui \
+    maincontent/controlwidget/radarcontrol/radarcontrol.ui \
     maincontent/controlwidget/slidercontrol/slidercontrol.ui \
     maincontent/controlwidget/slidercontrol/sliderwidget.ui \
     maincontent/controlwidget/tablecontrol/tablecontrol.ui \
@@ -89,6 +90,7 @@ FORMS += maincontent/controltabwidget.ui \
     titlebar/maintitlebar.ui
 
 HEADERS += flowlayout/flowlayout.h \
+    dialogsetting/dialogsettings.h \
     globaldef.hpp \
     maincontent/controltabwidget.h \
     maincontent/controltreewidget.h \
@@ -111,12 +113,11 @@ HEADERS += flowlayout/flowlayout.h \
     maincontent/controlwidget/openglcontrol/openglwidget.h \
     maincontent/controlwidget/openglcontrol/shaderlibrary.h \
     maincontent/controlwidget/openglcontrol/texturelibrary.h \
-    maincontent/controlwidget/plotcontrol/plotcontrol.h \
-    maincontent/controlwidget/plotcontrol/plotwidget.h \
     maincontent/controlwidget/processcontrol/processcontrol.h \
     maincontent/controlwidget/processcontrol/processwidget.h \
     maincontent/controlwidget/progresscontrol/progresscontrol.h \
     maincontent/controlwidget/progresscontrol/progresswidget.h \
+    maincontent/controlwidget/radarcontrol/radarcontrol.h \
     maincontent/controlwidget/slidercontrol/slidercontrol.h \
     maincontent/controlwidget/slidercontrol/sliderwidget.h \
     maincontent/controlwidget/tablecontrol/tablecontrol.h \

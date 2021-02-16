@@ -276,6 +276,7 @@ Makefile: pi_ti_radar_32.pro D:/QT5.14/5.14.2/mingw73_32/mkspecs/win32-g++/qmake
 		D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Widgets.prl \
 		D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Gui.prl \
 		D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Network.prl \
+		D:/QT5.14/5.14.2/mingw73_32/lib/Qt5SerialPort.prl \
 		D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Core.prl \
 		D:/QT5.14/5.14.2/mingw73_32/mkspecs/features/build_pass.prf \
 		res.qrc \
@@ -488,6 +489,7 @@ D:/QT5.14/5.14.2/mingw73_32/lib/Qt5PrintSupport.prl:
 D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Widgets.prl:
 D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Gui.prl:
 D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Network.prl:
+D:/QT5.14/5.14.2/mingw73_32/lib/Qt5SerialPort.prl:
 D:/QT5.14/5.14.2/mingw73_32/lib/Qt5Core.prl:
 D:/QT5.14/5.14.2/mingw73_32/mkspecs/features/build_pass.prf:
 res.qrc:

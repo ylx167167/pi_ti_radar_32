@@ -36,7 +36,7 @@
        <string>主页</string>
       </attribute>
      </widget>
-     <widget class="PlotWidget" name="tabPlot">
+     <widget class="RadarControl" name="radar">
       <attribute name="title">
        <string> 监控中心</string>
       </attribute>
@@ -58,15 +58,15 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>PlotWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">maincontent/controlwidget/plotcontrol/plotwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>TableWidget</class>
    <extends>QWidget</extends>
    <header location="global">maincontent/controlwidget/tablecontrol/tablewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RadarControl</class>
+   <extends>QWidget</extends>
+   <header location="global">maincontent/controlwidget/radarcontrol/radarcontrol.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

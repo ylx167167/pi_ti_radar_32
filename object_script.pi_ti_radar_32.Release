@@ -1,4 +1,5 @@
 objfile/main.o
+objfile/dialogsettings.o
 objfile/flowlayout.o
 objfile/controltabwidget.o
 objfile/controltreewidget.o
@@ -20,12 +21,11 @@ objfile/openglcontrol.o
 objfile/openglwidget.o
 objfile/shaderlibrary.o
 objfile/texturelibrary.o
-objfile/plotcontrol.o
-objfile/plotwidget.o
 objfile/processcontrol.o
 objfile/processwidget.o
 objfile/progresscontrol.o
 objfile/progresswidget.o
+objfile/radarcontrol.o
 objfile/slidercontrol.o
 objfile/sliderwidget.o
 objfile/tablecontrol.o
@@ -41,6 +41,7 @@ objfile/titlebar.o
 objfile/qrc_res.o
 objfile/qrc_shaders.o
 objfile/qrc_textures.o
+objfile/moc_dialogsettings.o
 objfile/moc_controltabwidget.o
 objfile/moc_controltreewidget.o
 objfile/moc_bannacontrol.o
@@ -58,12 +59,11 @@ objfile/moc_objectparent.o
 objfile/moc_openglcontrol.o
 objfile/moc_openglwidget.o
 objfile/moc_shaderlibrary.o
-objfile/moc_plotcontrol.o
-objfile/moc_plotwidget.o
 objfile/moc_processcontrol.o
 objfile/moc_processwidget.o
 objfile/moc_progresscontrol.o
 objfile/moc_progresswidget.o
+objfile/moc_radarcontrol.o
 objfile/moc_slidercontrol.o
 objfile/moc_sliderwidget.o
 objfile/moc_tablecontrol.o

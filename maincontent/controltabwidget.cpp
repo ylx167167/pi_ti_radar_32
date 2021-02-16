@@ -118,7 +118,7 @@ void ControlTabWidget::initValue()
 
     {
         TabWidgetData tabWidgetData;
-        tabWidgetData.currentWidget = ui->tabPlot;
+        tabWidgetData.currentWidget = ui->radar;
         tabWidgetData.currentTabText = ui->tabWidgetControl->tabText(TAB_MONITOR);
         mapTabWidget[TAB_MONITOR] = tabWidgetData;
     }
