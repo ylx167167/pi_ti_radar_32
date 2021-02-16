@@ -25,6 +25,7 @@ public:
     explicit ControlTabWidget(QWidget *parent = 0);
     ~ControlTabWidget();
 //#
+//#
 signals:
     void sendShowIndex(WidgetTabType);
 

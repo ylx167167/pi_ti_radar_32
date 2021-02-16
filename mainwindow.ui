@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1108</width>
-    <height>698</height>
+    <width>1448</width>
+    <height>999</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,8 +54,14 @@
       <property name="spacing">
        <number>0</number>
       </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMaximumSize</enum>
+      </property>
       <item>
        <widget class="ControlTreeWidget" name="widgetTree" native="true">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>240</width>

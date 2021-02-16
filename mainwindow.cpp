@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //初始化主界面
     ui->setupUi(this);
     this->initValue();
 }
@@ -31,10 +32,13 @@ void MainWindow::initValue()
     connect(syetemTray->getShowWidget(), SIGNAL(triggered(bool)), this, SLOT(showNormal()));
     connect(syetemTray->getMinWidget(), SIGNAL(triggered(bool)), this, SLOT(showMinimized()));
     ui->widgetTitle->setParentWidget(this);
+    //设置为无边框窗口
     this->setWindowFlags(Qt::FramelessWindowHint);
 
     // 将TreeWidget点击的index与TabWidget页面显示的index相互绑定
+    //connect(ui->widgetTree, SIGNAL(sendShowIndex(WidgetTabType)), ui->widgetTab, SLOT(receiveShowCurrentTab(WidgetTabType)));
     connect(ui->widgetTree, SIGNAL(sendShowIndex(WidgetTabType)), ui->widgetTab, SLOT(receiveShowCurrentTab(WidgetTabType)));
+
 }
 
 

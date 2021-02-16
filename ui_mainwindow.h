@@ -37,7 +37,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1108, 698);
+        MainWindow->resize(1448, 999);
         MainWindow->setStyleSheet(QString::fromUtf8(""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
@@ -56,8 +56,10 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setSizeConstraint(QLayout::SetMaximumSize);
         widgetTree = new ControlTreeWidget(centralWidget);
         widgetTree->setObjectName(QString::fromUtf8("widgetTree"));
+        widgetTree->setEnabled(true);
         widgetTree->setMinimumSize(QSize(240, 0));
         widgetTree->setMaximumSize(QSize(240, 16777215));
 

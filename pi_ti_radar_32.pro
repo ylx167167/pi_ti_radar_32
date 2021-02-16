@@ -12,7 +12,14 @@ TARGET =pi_ti_radar_32
 TEMPLATE = app
 #QMAKE_LFLAGS += -shared
 
-DESTDIR     = ../App
+MOC_DIR = $$OUT_PWD/mocfile
+OBJECTS_DIR = $$OUT_PWD/objfile
+#UI_DIR = $$OUT_PWD/uifile
+UI_DIR = $$OUT_PWD
+RCC_DIR = $$OUT_PWD/rcfile
+
+DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += QCUSTOMPLOT_USE_OPENGL
 
 
 SOURCES +=main.cpp\
@@ -56,8 +63,7 @@ SOURCES +=main.cpp\
     titlebar/maintitlebar.cpp \
     titlebar/titlebar.cpp
 
-FORMS += \
-    maincontent/controltabwidget.ui \
+FORMS += maincontent/controltabwidget.ui \
     maincontent/controltreewidget.ui \
     maincontent/controlwidget/bannacontrol/bannacontrol.ui \
     maincontent/controlwidget/bannacontrol/bannawidget.ui \
@@ -82,8 +88,7 @@ FORMS += \
     mainwindow.ui \
     titlebar/maintitlebar.ui
 
-HEADERS += \
-    flowlayout/flowlayout.h \
+HEADERS += flowlayout/flowlayout.h \
     globaldef.hpp \
     maincontent/controltabwidget.h \
     maincontent/controltreewidget.h \
@@ -130,3 +135,8 @@ RESOURCES += \
     res/shaders.qrc \
     res/textures.qrc
 
+DISTFILES += \
+    res/image/other/splash.png \
+    res/image/other/splash2.jpg \
+    res/image/other/splash3.png
+#RC_FILE += myapp.rc

@@ -31,6 +31,9 @@
         <file>res/image/other/star.png</file>
         <file>res/image/other/half_star.png</file>
         <file>res/image/other/splash.png</file>
+        <file>res/image/image1.png</file>
+        <file>res/image/other/splash3.png</file>
+        <file>res/image/other/splash2.jpg</file>
     </qresource>
     <qresource prefix="/qt">
         <file>etc/qt.conf</file>

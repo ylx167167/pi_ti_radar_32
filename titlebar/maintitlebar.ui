@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>688</width>
+    <width>1448</width>
     <height>45</height>
    </rect>
   </property>
@@ -67,7 +67,7 @@
          </font>
         </property>
         <property name="text">
-         <string>QCoolPage</string>
+         <string>Wayneyao</string>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -98,7 +98,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="../res.qrc">:/res/res/image/image.png</pixmap>
+         <pixmap resource="../res.qrc">:/res/res/image/image1.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -143,6 +143,10 @@
         <property name="text">
          <string/>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../res/image/min_hover.png</normaloff>../res/image/min_hover.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
@@ -170,6 +174,10 @@
         <property name="text">
          <string/>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../res/image/max_hover.png</normaloff>../res/image/max_hover.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
@@ -188,6 +196,10 @@
         </property>
         <property name="text">
          <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../res/image/close_hover.png</normaloff>../res/image/close_hover.png</iconset>
         </property>
        </widget>
       </item>

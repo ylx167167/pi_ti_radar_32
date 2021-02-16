@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>194</width>
-    <height>299</height>
+    <width>240</width>
+    <height>624</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>624</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -39,113 +45,175 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="midLineWidth">
+      <number>0</number>
+     </property>
+     <property name="textElideMode">
+      <enum>Qt::ElideMiddle</enum>
+     </property>
+     <property name="horizontalScrollMode">
+      <enum>QAbstractItemView::ScrollPerItem</enum>
+     </property>
+     <property name="indentation">
+      <number>0</number>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>false</bool>
+     </property>
+     <property name="itemsExpandable">
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <attribute name="headerMinimumSectionSize">
+      <number>48</number>
+     </attribute>
+     <attribute name="headerDefaultSectionSize">
+      <number>200</number>
+     </attribute>
      <column>
       <property name="text">
        <string notr="true">1</string>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>50</pointsize>
+       </font>
+      </property>
      </column>
      <item>
       <property name="text">
-       <string>轮播图</string>
+       <string>主页</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>Courier New</family>
+        <pointsize>30</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+        <stylestrategy>NoAntialias</stylestrategy>
+        <kerning>true</kerning>
+       </font>
       </property>
       <property name="textAlignment">
-       <set>AlignLeading|AlignVCenter</set>
+       <set>AlignHCenter|AlignBottom</set>
       </property>
-      <property name="icon">
-       <iconset>
-        <normalon>:/res/res/image/image.png</normalon>
-       </iconset>
+      <property name="background">
+       <brush brushstyle="Dense6Pattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
       </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>柱状图</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>进度条</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>面板</string>
+      <property name="foreground">
+       <brush brushstyle="NoBrush">
+        <color alpha="255">
+         <red>85</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
       </property>
       <property name="icon">
        <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
+        <normaloff>:/res/res/image/right_arrow_hover.png</normaloff>:/res/res/image/right_arrow_hover.png</iconset>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>列表</string>
+       <string>监控中心</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>Courier New</family>
+        <pointsize>30</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+        <stylestrategy>NoAntialias</stylestrategy>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignHCenter|AlignBottom</set>
+      </property>
+      <property name="background">
+       <brush brushstyle="Dense6Pattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </property>
+      <property name="foreground">
+       <brush brushstyle="DiagCrossPattern">
+        <color alpha="255">
+         <red>85</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
       </property>
       <property name="icon">
        <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
+        <normaloff>:/res/res/image/right_arrow_normal.png</normaloff>:/res/res/image/right_arrow_normal.png</iconset>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>坐标系</string>
+       <string>设置</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>Courier New</family>
+        <pointsize>30</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+        <stylestrategy>NoAntialias</stylestrategy>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignHCenter|AlignBottom</set>
+      </property>
+      <property name="background">
+       <brush brushstyle="Dense6Pattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </property>
+      <property name="foreground">
+       <brush brushstyle="Dense6Pattern">
+        <color alpha="255">
+         <red>85</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
       </property>
       <property name="icon">
        <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>移动按钮</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>表格</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>移动进度</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>流程进度</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normalon>:/res/res/image/image.png</normalon>
-       </iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>三维模型</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res.qrc">
-        <normaloff>:/res/res/image/image.png</normaloff>:/res/res/image/image.png</iconset>
+        <normaloff>:/res/res/image/right_arrow_pressed.png</normaloff>:/res/res/image/right_arrow_pressed.png</iconset>
       </property>
      </item>
     </widget>

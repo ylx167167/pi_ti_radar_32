@@ -12,6 +12,4 @@ int main(int argc, char *argv[]) {
   LOADQSS(GlobalSpace::STYLE_QSS_FILE_PATH);
 
   return a.exec();
-  //    printf("haha");
-  //    return 0;
 }

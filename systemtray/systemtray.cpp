@@ -44,7 +44,7 @@ void SystemTray::createAction()
     exitSoftWare = new QAction(tr("退出软件 "), this);
 
     this->setIcon(QIcon(GlobalSpace::LOGO_PATH));
-    this->setToolTip(tr("QCoolPage"));
+    this->setToolTip(tr("Wayneyao"));
 
     connect(exitSoftWare, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
     connect(aboutSoftWare, SIGNAL(triggered(bool)), this, SLOT(aboutSlot()));
@@ -62,7 +62,7 @@ QAction *SystemTray::getAboutSoftWare() const
 // 关于软件
 void SystemTray::aboutSlot()
 {
-    QDesktopServices::openUrl(QUrl("https://github.com/YYC572652645/QCoolPage"));
+//    QDesktopServices::openUrl(QUrl("https://github.com/YYC572652645/QCoolPage"));
 }
 
 // 获取最小化事件

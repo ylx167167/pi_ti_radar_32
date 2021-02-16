@@ -10,6 +10,7 @@
 #define UI_MAINTITLEBAR_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -38,7 +39,7 @@ public:
     {
         if (MainTitleBar->objectName().isEmpty())
             MainTitleBar->setObjectName(QString::fromUtf8("MainTitleBar"));
-        MainTitleBar->resize(688, 45);
+        MainTitleBar->resize(1448, 45);
         MainTitleBar->setStyleSheet(QString::fromUtf8(""));
         verticalLayout = new QVBoxLayout(MainTitleBar);
         verticalLayout->setSpacing(0);
@@ -72,7 +73,7 @@ public:
         font1.setBold(true);
         font1.setWeight(75);
         labelImage->setFont(font1);
-        labelImage->setPixmap(QPixmap(QString::fromUtf8(":/res/res/image/image.png")));
+        labelImage->setPixmap(QPixmap(QString::fromUtf8(":/res/res/image/image1.png")));
         labelImage->setScaledContents(true);
 
         horizontalLayout->addWidget(labelImage);
@@ -89,6 +90,9 @@ public:
         font2.setPointSize(6);
         pushButtonMin->setFont(font2);
         pushButtonMin->setStyleSheet(QString::fromUtf8(""));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("../res/image/min_hover.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButtonMin->setIcon(icon);
 
         horizontalLayout->addWidget(pushButtonMin);
 
@@ -98,6 +102,9 @@ public:
         pushButtonNormalMax->setMaximumSize(QSize(20, 20));
         pushButtonNormalMax->setFont(font2);
         pushButtonNormalMax->setStyleSheet(QString::fromUtf8(""));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8("../res/image/max_hover.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButtonNormalMax->setIcon(icon1);
 
         horizontalLayout->addWidget(pushButtonNormalMax);
 
@@ -105,6 +112,9 @@ public:
         pushButtonClose->setObjectName(QString::fromUtf8("pushButtonClose"));
         pushButtonClose->setMinimumSize(QSize(20, 20));
         pushButtonClose->setMaximumSize(QSize(20, 20));
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8("../res/image/close_hover.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButtonClose->setIcon(icon2);
 
         horizontalLayout->addWidget(pushButtonClose);
 
@@ -120,7 +130,7 @@ public:
     void retranslateUi(QWidget *MainTitleBar)
     {
         MainTitleBar->setWindowTitle(QCoreApplication::translate("MainTitleBar", "Form", nullptr));
-        labelTitleName->setText(QCoreApplication::translate("MainTitleBar", "QCoolPage", nullptr));
+        labelTitleName->setText(QCoreApplication::translate("MainTitleBar", "Wayneyao", nullptr));
         labelImage->setText(QString());
         pushButtonMin->setText(QString());
         pushButtonNormalMax->setText(QString());
