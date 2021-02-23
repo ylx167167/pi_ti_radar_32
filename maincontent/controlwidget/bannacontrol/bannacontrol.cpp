@@ -15,7 +15,7 @@
  * ***************************************/
 #include "bannacontrol.h"
 #include "ui_bannacontrol.h"
-
+#include <QPalette>
 // 构造函数
 BannaControl::BannaControl(QWidget *parent) :
     QWidget(parent),
@@ -23,6 +23,11 @@ BannaControl::BannaControl(QWidget *parent) :
 {
     ui->setupUi(this);
     this->initValue();
+//     this->setWindowFlags(Qt::FramelessWindowHint);
+//    this->setAttribute(Qt::WA_TranslucentBackground);//设置背景 为透明
+         QPalette bgpal;
+       bgpal.setColor(QPalette::Background, Qt::transparent);
+       this->setPalette(bgpal);
 }
 
 // 析构函数
@@ -48,6 +53,7 @@ void BannaControl::initValue()
 
     ui->labelThird->raise();
     ui->labelFifth->lower();
+
 
     {
         BannaData bannaData;

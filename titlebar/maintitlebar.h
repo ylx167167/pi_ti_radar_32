@@ -9,6 +9,7 @@
 
 #include <QWidget>
 #include "titlebar/titlebar.h"
+#include <QTimer>
 
 namespace Ui {
 class MainTitleBar;
@@ -26,9 +27,12 @@ private slots:
     void on_pushButtonClose_clicked();
     void on_pushButtonMin_clicked();
     void on_pushButtonNormalMax_clicked();
+    void qtimeSlot();
 
 private:
     Ui::MainTitleBar *ui;
+    QTimer *timer;
+
 };
 
 #endif // MAINTITLEBAR_H

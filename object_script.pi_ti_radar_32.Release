@@ -1,4 +1,5 @@
 objfile/main.o
+objfile/CCtrlDashBoard.o
 objfile/dialogsettings.o
 objfile/flowlayout.o
 objfile/login.o
@@ -28,6 +29,7 @@ objfile/titlebar.o
 objfile/qrc_res.o
 objfile/qrc_shaders.o
 objfile/qrc_textures.o
+objfile/moc_CCtrlDashBoard.o
 objfile/moc_dialogsettings.o
 objfile/moc_login.o
 objfile/moc_controltabwidget.o

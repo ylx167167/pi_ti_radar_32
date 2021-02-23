@@ -13,7 +13,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
@@ -82,15 +81,15 @@ public:
     QLabel *label_3;
     QLCDNumber *lcdNumber_HeartEnergy;
     QLabel *label_Index;
-    QWidget *widget;
+    QWidget *layoutWidget2;
     QGridLayout *gridLayout_4;
-    QGroupBox *groupBox;
-    QGroupBox *groupBox_2;
+    QWidget *content_2;
     QVBoxLayout *verticalLayout;
     QSplitter *splitter;
     QLCDNumber *lcdNumber_Display3;
     QSplitter *splitter_2;
     QLCDNumber *lcdNumber_ReliabilityMetric;
+    QWidget *content;
 
     void setupUi(QWidget *RadarControl)
     {
@@ -457,30 +456,23 @@ public:
 
         gridLayout_2->addLayout(gridLayout, 1, 0, 1, 1);
 
-        widget = new QWidget(RadarControl);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(0, 4, 251, 731));
-        gridLayout_4 = new QGridLayout(widget);
+        layoutWidget2 = new QWidget(RadarControl);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(1, 0, 251, 731));
+        gridLayout_4 = new QGridLayout(layoutWidget2);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
-        groupBox = new QGroupBox(widget);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setMinimumSize(QSize(0, 50));
+        content_2 = new QWidget(layoutWidget2);
+        content_2->setObjectName(QString::fromUtf8("content_2"));
 
-        gridLayout_4->addWidget(groupBox, 0, 0, 1, 1);
-
-        groupBox_2 = new QGroupBox(widget);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setMinimumSize(QSize(0, 50));
-
-        gridLayout_4->addWidget(groupBox_2, 1, 0, 1, 1);
+        gridLayout_4->addWidget(content_2, 1, 0, 1, 1);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        splitter = new QSplitter(widget);
+        splitter = new QSplitter(layoutWidget2);
         splitter->setObjectName(QString::fromUtf8("splitter"));
         splitter->setOrientation(Qt::Horizontal);
         lcdNumber_Display3 = new QLCDNumber(splitter);
@@ -490,7 +482,7 @@ public:
 
         verticalLayout->addWidget(splitter);
 
-        splitter_2 = new QSplitter(widget);
+        splitter_2 = new QSplitter(layoutWidget2);
         splitter_2->setObjectName(QString::fromUtf8("splitter_2"));
         splitter_2->setOrientation(Qt::Horizontal);
         lcdNumber_ReliabilityMetric = new QLCDNumber(splitter_2);
@@ -501,6 +493,11 @@ public:
 
 
         gridLayout_4->addLayout(verticalLayout, 2, 0, 1, 1);
+
+        content = new QWidget(layoutWidget2);
+        content->setObjectName(QString::fromUtf8("content"));
+
+        gridLayout_4->addWidget(content, 0, 0, 1, 1);
 
 
         retranslateUi(RadarControl);
@@ -527,8 +524,6 @@ public:
         label_6->setText(QCoreApplication::translate("RadarControl", "HR-FT", nullptr));
         label_3->setText(QCoreApplication::translate("RadarControl", "Heart-Wfm", nullptr));
         label_Index->setText(QCoreApplication::translate("RadarControl", "Index ", nullptr));
-        groupBox->setTitle(QString());
-        groupBox_2->setTitle(QString());
     } // retranslateUi
 
 };

@@ -8,7 +8,6 @@
 #include "ui_maintitlebar.h"
 #include <QDateTime>
 
-
 MainTitleBar::MainTitleBar(QWidget *parent) :
     TitleBar(parent),
     ui(new Ui::MainTitleBar)
@@ -16,10 +15,9 @@ MainTitleBar::MainTitleBar(QWidget *parent) :
     ui->setupUi(this);
     ui->pushButtonNormalMax->setStyleSheet("QPushButton{border-image: url(:/res/res/image/normal_normal.png);}"
                                            "QPushButton:hover{border-image: url(:/res/res/image/normal_hover.png);}");
-    QDateTime begin_time = QDateTime::currentDateTime();
-//    QString begin =begin_time.toString("yyyy.MM.dd hh:mm:ss ddd");
-    ui->label->setText(begin_time.toString("yyyy.MM.dd hh:mm:ss ddd"));
-//    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(showTime()));
+    timer=new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(qtimeSlot()));
+    timer->start(1000);
 }
 
 MainTitleBar::~MainTitleBar()
@@ -59,4 +57,14 @@ void MainTitleBar::on_pushButtonNormalMax_clicked()
         ui->pushButtonNormalMax->setStyleSheet("QPushButton{border-image: url(:/res/res/image/max_normal.png);}"
                                                "QPushButton:hover{border-image: url(:/res/res/image/max_hover.png);}");
     }
+}
+
+void MainTitleBar::qtimeSlot(){
+    QTime qtimeObj = QTime::currentTime();
+    QString strTime = qtimeObj.toString("h:m:s");
+    QDate qdateObj = QDate::currentDate();
+//    QString strDate = qdateObj.toString("dddd, MMMM d, yyyy"); //星期、月份、天、年
+    QString strDate = qdateObj.toString("yyyy,MM,dd  "); //星期、月份、天、年
+    strDate.append(strTime);
+    ui->label->setText (strDate);
 }

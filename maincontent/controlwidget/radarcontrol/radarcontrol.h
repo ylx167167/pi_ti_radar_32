@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QSerialPort>
 #include <radarconfig.h>
-
+#include <CCtrlDashBoard/CCtrlDashBoard.h>
 
 #define LENGTH_MAGIC_WORD_BYTES 8 // Length of Magic Word appended to the UART packet from the EVM
 
@@ -79,6 +79,9 @@
 #define ALPHA_HEARTRATE_CM (0.2)
 #define ALPHA_RCS (0.2)
 #define APPLY_KALMAN_FILTER (0.0)
+
+#define BreathRateMax 30
+#define HeartRateMax 80
 namespace Ui {
 class RadarControl;
 }
@@ -132,7 +135,10 @@ private:
     int totalPayloadSize_nibbles;
     float AGC_thresh;
     } demoParams;
-
+    int BreathRateovertimes;
+    int HeartRateovertimes;
+    CCtrlDashBoard     *m_DashBoard;
+    CCtrlDashBoard     *m_DashBoard_2;
     static RadarControl *m_instatnce;
 private slots:
     void    serialRecieved();
@@ -143,10 +149,10 @@ private slots:
     qint16  parseValueInt16(QByteArray data, int valuePos, int valueSize);
     bool    serialPortConfig(QSerialPort *serial, qint32 baudrate, QString dataPortNum );
     void    processData();
-
-
-
-
+    void    setIndexdial();
+    void    set_BreathRate_warningBox();
+    void    set_HeartRate_warningBox();
+    void    inivalue();
 
 signals:
     void gui_statusChanged();

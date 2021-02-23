@@ -7,7 +7,7 @@
 #include <QFile>
 #include <QElapsedTimer> // This class provides a fast way to calculate elapsed times
 #include "dialogsetting/dialogsettings.h"
-
+#include <QMessageBox>
 
 float BREATHING_PLOT_MAX_YAXIS;
 float HEART_PLOT_MAX_YAXIS;
@@ -37,27 +37,15 @@ RadarControl::RadarControl(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #283345,stop:0.5 #151c26 ,stop:1 #020407)");
-
+    this->inivalue();
     currIndex = 0;
 
     qDebug() << "QT version = " << QT_VERSION_STR;
     qint32 baudRate = 921600;
     FLAG_PAUSE = false;
     outFile.open(QIODevice::Append); // Open the file by default
-//    AUTO_DETECT_COM_PORTS = RadarConfig::GetInstance()->is_checkBox_AutoDetectPorts;
 
-//    if (AUTO_DETECT_COM_PORTS)
-//    {
-//        /* Serial Port Settings */
-//        RadarConfig::GetInstance()->serialPortFound_Flag = RadarConfig::GetInstance()->serialPortFind();
-//        if (RadarConfig::GetInstance()->serialPortFound_Flag)
-//        {
-//            qDebug() << "Serial Port Found";
-//            qDebug() << "Data Port Number is" << RadarConfig::GetInstance()->dataPortNum;
-//            qDebug() << "User Port Number is" << RadarConfig::GetInstance()->userPortNum;
-//        }
-//    }
-
+    setIndexdial();
 
     RadarConfig::GetInstance()->serialRead = new QSerialPort(this);
     RadarConfig::GetInstance()->dataPort_Connected = serialPortConfig(RadarConfig::GetInstance()->serialRead, baudRate, RadarConfig::GetInstance()->dataPortNum);
@@ -80,7 +68,7 @@ RadarControl::RadarControl(QWidget *parent) :
     QFont font;
     font.setPointSize(12);
     QPen myPen;
-    myPen.setWidth(1.5); // Width greater than 1 considerably slows down the application
+    myPen.setWidth(2); // Width greater than 1 considerably slows down the application
     myPen.setColor(Qt::blue);
     QFont titleFont;
     titleFont.setPointSize(15);
@@ -845,12 +833,22 @@ void RadarControl::processData()
                 QString myString_BreathRate;
                 ui->lcdNumber_Breathingrate->setDigitCount(8);
                 myString_BreathRate.sprintf("%1.0f", BreathingRate_Out);
+                this->m_DashBoard->setValue(myString_BreathRate.toFloat());
                 ui->lcdNumber_Breathingrate->display(myString_BreathRate);
+                if(myString_BreathRate.toFloat()>BreathRateMax)
+                 {
+                    this->set_BreathRate_warningBox();
+                }
 
                 QString myString_HeartRate;
                 ui->lcdNumber_HeartRate->setDigitCount(3);
                 myString_HeartRate.sprintf("%1.0f", heartRate_Out);
+                this->m_DashBoard_2->setValue(myString_HeartRate.toFloat());
                 ui->lcdNumber_HeartRate->display(myString_HeartRate);
+                if(myString_HeartRate.toFloat()>HeartRateMax)
+                 {
+                    this->set_BreathRate_warningBox();
+                }
 
                 QString myString_RangeBinIndex;
                 ui->lcdNumber_Index->setDigitCount(8);
@@ -975,4 +973,74 @@ void RadarControl::on_pushButton_pause_clicked()
 }
 void RadarControl::testtxt(){
  this->ui->lcdNumber_Breathingrate->display("123");
+}
+
+void RadarControl::setIndexdial(){
+
+ m_DashBoard =new CCtrlDashBoard(ui->content);
+ m_DashBoard->setGeometry(25,25,600,600);
+
+ m_DashBoard_2 =new CCtrlDashBoard(ui->content_2);
+ m_DashBoard_2->setGeometry(25,25,600,600);
+}
+
+void RadarControl::inivalue(){
+    this->BreathRateovertimes=0;
+    this->HeartRateovertimes=0;
+}
+
+void RadarControl::set_BreathRate_warningBox(){
+    BreathRateovertimes++;
+    if(HeartRateovertimes>10){
+        QMessageBox message(QMessageBox::Warning,"Information","您的呼吸速率超过正常范围已经超过十次 请下车休息",QMessageBox::Yes|QMessageBox::No,NULL);
+        if (message.exec()==QMessageBox::Yes)
+        {
+            qDebug()<<"clicked yes\n";
+        }
+        else
+        {
+            qDebug()<<"clicked no\n";
+        }
+        BreathRateovertimes=0;
+    }else{
+        QMessageBox message(QMessageBox::Warning,"Information","您的呼吸速率超过正常范围 请规范开车",QMessageBox::Yes|QMessageBox::No,NULL);
+        if (message.exec()==QMessageBox::Yes)
+        {
+            qDebug()<<"clicked yes\n";
+        }
+        else
+        {
+            qDebug()<<"clicked no\n";
+        }
+    }
+
+}
+
+void RadarControl::set_HeartRate_warningBox(){
+    HeartRateovertimes++;
+    if(HeartRateovertimes>10)
+    {
+        QMessageBox message(QMessageBox::Warning,"Information","您的心跳速率超过正常范围已经超过十次 请下车休息",QMessageBox::Yes|QMessageBox::No,NULL);
+        if (message.exec()==QMessageBox::Yes)
+        {
+            qDebug()<<"clicked yes\n";
+        }
+        else
+        {
+            qDebug()<<"clicked no\n";
+        }
+        HeartRateovertimes=0;
+    }else
+    {
+        QMessageBox message(QMessageBox::Warning,"Information","您的心跳速率超过正常范围 请规范开车",QMessageBox::Yes|QMessageBox::No,NULL);
+        if (message.exec()==QMessageBox::Yes)
+        {
+            qDebug()<<"clicked yes\n";
+        }
+        else
+        {
+            qDebug()<<"clicked no\n";
+        }
+    }
+
 }

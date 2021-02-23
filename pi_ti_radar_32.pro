@@ -24,6 +24,7 @@ DEFINES += QCUSTOMPLOT_USE_OPENGL
 
 
 SOURCES +=main.cpp\
+    CCtrlDashBoard/CCtrlDashBoard.cpp \
     dialogsetting/dialogsettings.cpp \
     flowlayout/flowlayout.cpp \
     login/login.cpp \
@@ -65,6 +66,7 @@ FORMS += maincontent/controltabwidget.ui \
     titlebar/maintitlebar.ui
 
 HEADERS += flowlayout/flowlayout.h \
+    CCtrlDashBoard/CCtrlDashBoard.h \
     dialogsetting/dialogsettings.h \
     globaldef.hpp \
     login/login.h \

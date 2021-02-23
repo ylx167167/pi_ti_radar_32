@@ -48,10 +48,7 @@ public:
         if (BannaControl->objectName().isEmpty())
             BannaControl->setObjectName(QString::fromUtf8("BannaControl"));
         BannaControl->resize(797, 430);
-        BannaControl->setStyleSheet(QString::fromUtf8("QWidget,QFrame\n"
-"{\n"
-"background-color: #1A1A1A;\n"
-"}"));
+        BannaControl->setStyleSheet(QString::fromUtf8(""));
         verticalLayout = new QVBoxLayout(BannaControl);
         verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
