@@ -7,6 +7,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDateTime>
 
 // 构造函数
 MainWindow::MainWindow(QWidget *parent) :
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //初始化主界面
     ui->setupUi(this);
+    this->setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #283345,stop:0.5 #151c26 ,stop:1 #020407)");
     this->initValue();
 }
 

@@ -6,6 +6,8 @@
  * ***************************************/
 #include "maintitlebar.h"
 #include "ui_maintitlebar.h"
+#include <QDateTime>
+
 
 MainTitleBar::MainTitleBar(QWidget *parent) :
     TitleBar(parent),
@@ -14,6 +16,10 @@ MainTitleBar::MainTitleBar(QWidget *parent) :
     ui->setupUi(this);
     ui->pushButtonNormalMax->setStyleSheet("QPushButton{border-image: url(:/res/res/image/normal_normal.png);}"
                                            "QPushButton:hover{border-image: url(:/res/res/image/normal_hover.png);}");
+    QDateTime begin_time = QDateTime::currentDateTime();
+//    QString begin =begin_time.toString("yyyy.MM.dd hh:mm:ss ddd");
+    ui->label->setText(begin_time.toString("yyyy.MM.dd hh:mm:ss ddd"));
+//    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(showTime()));
 }
 
 MainTitleBar::~MainTitleBar()

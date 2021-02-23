@@ -30,6 +30,7 @@ void MainObject::setInit()
     SplashScreen::getInstance()->setStagePercent(100, tr("欢迎进入Wayneyao车内生命体征监测系统 加载完毕！"));
     SplashScreen::getInstance()->setFinish();
 
+
     m_mainWindow->showNormal();
 }
 

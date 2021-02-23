@@ -6,17 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1448</width>
-    <height>999</height>
+    <width>1630</width>
+    <height>830</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QWidget,QFrame
+{
+background-color: #ffffff;
+}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
@@ -47,6 +53,12 @@
         <height>50</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget,QFrame
+{
+background-color: #1A1A1A;
+}</string>
+      </property>
      </widget>
     </item>
     <item>
@@ -74,16 +86,33 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QWidget,QFrame
+{
+background-color: #1A1A1A;
+}</string>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="ControlTabWidget" name="widgetTab" native="true"/>
+       <widget class="ControlTabWidget" name="widgetTab" native="true">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="styleSheet">
+    <string notr="true">QWidget,QFrame
+{
+background-color: #1A1A1A;
+}</string>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

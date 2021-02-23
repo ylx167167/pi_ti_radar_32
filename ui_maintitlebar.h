@@ -13,11 +13,10 @@
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
-#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,12 +24,13 @@ QT_BEGIN_NAMESPACE
 class Ui_MainTitleBar
 {
 public:
-    QVBoxLayout *verticalLayout;
+    QGridLayout *gridLayout;
     QFrame *frameBorder;
-    QHBoxLayout *horizontalLayout;
+    QGridLayout *gridLayout_2;
     QLabel *labelTitleName;
     QLabel *labelImage;
     QSpacerItem *horizontalSpacer;
+    QLabel *label;
     QPushButton *pushButtonMin;
     QPushButton *pushButtonNormalMax;
     QPushButton *pushButtonClose;
@@ -41,18 +41,15 @@ public:
             MainTitleBar->setObjectName(QString::fromUtf8("MainTitleBar"));
         MainTitleBar->resize(1448, 45);
         MainTitleBar->setStyleSheet(QString::fromUtf8(""));
-        verticalLayout = new QVBoxLayout(MainTitleBar);
-        verticalLayout->setSpacing(0);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        gridLayout = new QGridLayout(MainTitleBar);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
         frameBorder = new QFrame(MainTitleBar);
         frameBorder->setObjectName(QString::fromUtf8("frameBorder"));
         frameBorder->setFrameShape(QFrame::StyledPanel);
         frameBorder->setFrameShadow(QFrame::Raised);
-        horizontalLayout = new QHBoxLayout(frameBorder);
-        horizontalLayout->setSpacing(10);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(9, 9, 9, 9);
+        gridLayout_2 = new QGridLayout(frameBorder);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         labelTitleName = new QLabel(frameBorder);
         labelTitleName->setObjectName(QString::fromUtf8("labelTitleName"));
         QFont font;
@@ -63,7 +60,7 @@ public:
         labelTitleName->setFont(font);
         labelTitleName->setScaledContents(true);
 
-        horizontalLayout->addWidget(labelTitleName);
+        gridLayout_2->addWidget(labelTitleName, 0, 0, 1, 1);
 
         labelImage = new QLabel(frameBorder);
         labelImage->setObjectName(QString::fromUtf8("labelImage"));
@@ -76,11 +73,18 @@ public:
         labelImage->setPixmap(QPixmap(QString::fromUtf8(":/res/res/image/image1.png")));
         labelImage->setScaledContents(true);
 
-        horizontalLayout->addWidget(labelImage);
+        gridLayout_2->addWidget(labelImage, 0, 1, 1, 1);
 
-        horizontalSpacer = new QSpacerItem(492, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(1023, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer);
+        gridLayout_2->addItem(horizontalSpacer, 0, 2, 1, 1);
+
+        label = new QLabel(frameBorder);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setMinimumSize(QSize(200, 20));
+        label->setSizeIncrement(QSize(1222, 21212));
+
+        gridLayout_2->addWidget(label, 0, 3, 1, 1);
 
         pushButtonMin = new QPushButton(frameBorder);
         pushButtonMin->setObjectName(QString::fromUtf8("pushButtonMin"));
@@ -94,7 +98,7 @@ public:
         icon.addFile(QString::fromUtf8("../res/image/min_hover.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButtonMin->setIcon(icon);
 
-        horizontalLayout->addWidget(pushButtonMin);
+        gridLayout_2->addWidget(pushButtonMin, 0, 4, 1, 1);
 
         pushButtonNormalMax = new QPushButton(frameBorder);
         pushButtonNormalMax->setObjectName(QString::fromUtf8("pushButtonNormalMax"));
@@ -106,7 +110,7 @@ public:
         icon1.addFile(QString::fromUtf8("../res/image/max_hover.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButtonNormalMax->setIcon(icon1);
 
-        horizontalLayout->addWidget(pushButtonNormalMax);
+        gridLayout_2->addWidget(pushButtonNormalMax, 0, 5, 1, 1);
 
         pushButtonClose = new QPushButton(frameBorder);
         pushButtonClose->setObjectName(QString::fromUtf8("pushButtonClose"));
@@ -116,10 +120,10 @@ public:
         icon2.addFile(QString::fromUtf8("../res/image/close_hover.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButtonClose->setIcon(icon2);
 
-        horizontalLayout->addWidget(pushButtonClose);
+        gridLayout_2->addWidget(pushButtonClose, 0, 6, 1, 1);
 
 
-        verticalLayout->addWidget(frameBorder);
+        gridLayout->addWidget(frameBorder, 0, 0, 1, 1);
 
 
         retranslateUi(MainTitleBar);
@@ -132,6 +136,7 @@ public:
         MainTitleBar->setWindowTitle(QCoreApplication::translate("MainTitleBar", "Form", nullptr));
         labelTitleName->setText(QCoreApplication::translate("MainTitleBar", "Wayneyao", nullptr));
         labelImage->setText(QString());
+        label->setText(QCoreApplication::translate("MainTitleBar", "TextLabel", nullptr));
         pushButtonMin->setText(QString());
         pushButtonNormalMax->setText(QString());
         pushButtonClose->setText(QString());

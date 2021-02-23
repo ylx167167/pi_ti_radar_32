@@ -8,154 +8,73 @@
 #include <QElapsedTimer> // This class provides a fast way to calculate elapsed times
 #include "dialogsetting/dialogsettings.h"
 
-#define LENGTH_MAGIC_WORD_BYTES 8 // Length of Magic Word appended to the UART packet from the EVM
-
-#define LENGTH_HEADER_BYTES 40 // Header + Magic Word
-#define LENGTH_TLV_MESSAGE_HEADER_BYTES 8
-#define LENGTH_DEBUG_DATA_OUT_BYTES 128   // VitalSignsDemo_OutputStats size
-#define MMWDEMO_OUTPUT_MSG_SEGMENT_LEN 32 // The data sent out through the UART has Extra Padding to make it a 
-#define LENGTH_OFFSET_BYTES LENGTH_HEADER_BYTES - LENGTH_MAGIC_WORD_BYTES + LENGTH_TLV_MESSAGE_HEADER_BYTES
-#define LENGTH_OFFSET_NIBBLES 2 * LENGTH_OFFSET_BYTES
-
-#define INDEX_GLOBAL_COUNT 6
-#define INDEX_RANGE_BIN_PHASE 1
-#define INDEX_RANGE_BIN_VALUE 2
-#define INDEX_PHASE 5
-#define INDEX_BREATHING_WAVEFORM 6
-#define INDEX_HEART_WAVEFORM 7
-#define INDEX_HEART_RATE_EST_FFT 8
-#define INDEX_HEART_RATE_EST_FFT_4Hz 9
-#define INDEX_HEART_RATE_EST_FFT_xCorr 10
-#define INDEX_HEART_RATE_EST_PEAK 11
-#define INDEX_BREATHING_RATE_FFT 12
-#define INDEX_BREATHING_RATE_xCorr 13
-#define INDEX_BREATHING_RATE_PEAK 14
-#define INDEX_CONFIDENCE_METRIC_BREATH 15
-#define INDEX_CONFIDENCE_METRIC_BREATH_xCorr 16
-#define INDEX_CONFIDENCE_METRIC_HEART 17
-#define INDEX_CONFIDENCE_METRIC_HEART_4Hz 18
-#define INDEX_CONFIDENCE_METRIC_HEART_xCorr 19
-#define INDEX_ENERGYWFM_BREATH 20
-#define INDEX_ENERGYWFM_HEART 21
-#define INDEX_MOTION_DETECTION 22
-#define INDEX_BREATHING_RATE_HARM_ENERG 23
-#define INDEX_HEART_RATE_HARM_ENERG 24
-
-#define INDEX_RANGE_PROFILE_START 35 //(LENGTH_DEBUG_DATA_OUT_BYTES+LENGTH_TLV_MESSAGE_HEADER_BYTES)/4  + 1
-
-#define INDEX_IN_GLOBAL_FRAME_COUNT INDEX_GLOBAL_COUNT * 8
-#define INDEX_IN_RANGE_BIN_INDEX LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_RANGE_BIN_PHASE * 8 + 4
-#define INDEX_IN_DATA_CONFIDENCE_METRIC_HEART_4Hz LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_CONFIDENCE_METRIC_HEART_4Hz * 8
-#define INDEX_IN_DATA_CONFIDENCE_METRIC_HEART_xCorr LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_CONFIDENCE_METRIC_HEART_xCorr * 8
-#define INDEX_IN_DATA_PHASE LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_PHASE * 8
-#define INDEX_IN_DATA_BREATHING_WAVEFORM LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_BREATHING_WAVEFORM * 8
-#define INDEX_IN_DATA_HEART_WAVEFORM LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_HEART_WAVEFORM * 8
-#define INDEX_IN_DATA_BREATHING_RATE_FFT LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_BREATHING_RATE_FFT * 8
-#define INDEX_IN_DATA_HEART_RATE_EST_FFT LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_HEART_RATE_EST_FFT * 8
-#define INDEX_IN_DATA_HEART_RATE_EST_FFT_4Hz LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_HEART_RATE_EST_FFT_4Hz * 8
-#define INDEX_IN_DATA_HEART_RATE_EST_FFT_xCorr LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_HEART_RATE_EST_FFT_xCorr * 8
-#define INDEX_IN_DATA_BREATHING_RATE_PEAK LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_BREATHING_RATE_PEAK * 8
-#define INDEX_IN_DATA_HEART_RATE_EST_PEAK LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_HEART_RATE_EST_PEAK * 8
-#define INDEX_IN_DATA_CONFIDENCE_METRIC_BREATH LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_CONFIDENCE_METRIC_BREATH * 8
-#define INDEX_IN_DATA_CONFIDENCE_METRIC_HEART LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_CONFIDENCE_METRIC_HEART * 8
-#define INDEX_IN_DATA_ENERGYWFM_BREATH LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_ENERGYWFM_BREATH * 8
-#define INDEX_IN_DATA_ENERGYWFM_HEART LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_ENERGYWFM_HEART * 8
-#define INDEX_IN_DATA_MOTION_DETECTION_FLAG LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_MOTION_DETECTION * 8
-#define INDEX_IN_DATA_CONFIDENCE_METRIC_BREATH_xCorr LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_CONFIDENCE_METRIC_BREATH_xCorr * 8
-#define INDEX_IN_DATA_BREATHING_RATE_HARM_ENERGY LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_BREATHING_RATE_HARM_ENERG * 8
-#define INDEX_IN_DATA_BREATHING_RATE_xCorr LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_BREATHING_RATE_xCorr * 8
-
-#define INDEX_IN_DATA_RANGE_PROFILE_START LENGTH_MAGIC_WORD_BYTES + LENGTH_OFFSET_NIBBLES + INDEX_RANGE_PROFILE_START * 8
-
-#define NUM_PTS_DISTANCE_TIME_PLOT (256)
-#define HEART_RATE_EST_MEDIAN_FLT_SIZE (200)
-#define HEART_RATE_EST_FINAL_OUT_SIZE (200)
-#define THRESH_HEART_CM (0.25)
-#define THRESH_BREATH_CM (1.0)
-#define BACK_THRESH_BPM (4)
-#define BACK_THRESH_CM (0.20)
-#define BACK_THRESH_4Hz_CM (0.15)
-#define THRESH_BACK (30)
-#define THRESH_DIFF_EST (20)
-#define ALPHA_HEARTRATE_CM (0.2)
-#define ALPHA_RCS (0.2)
-#define APPLY_KALMAN_FILTER (0.0)
 
 float BREATHING_PLOT_MAX_YAXIS;
 float HEART_PLOT_MAX_YAXIS;
 
-QSerialPort *serialRead, *serialWrite;
+
 bool FileSavingFlag;       // "True" if we want to save the data on to a text file
-bool serialPortFound_Flag; // "True" if Serial port found
-bool FlagSerialPort_Connected, dataPort_Connected, userPort_Connected;
 float thresh_breath, thresh_heart;
 
 // GUI Status
-enum gui_status
-{
-    gui_running,
-    gui_stopped,
-    gui_paused
-};
-gui_status current_gui_status;
 
+
+RadarControl* RadarControl::m_instatnce=nullptr;
 QSettings settings("Texas Instruments", "Vital Signs");
 QFile outFile("dataOutputFromEVM.bin"); // File to save the Data
+
+RadarControl* RadarControl::GetInstance(){
+    if( RadarControl::m_instatnce == nullptr)
+    {
+        RadarControl::m_instatnce = new RadarControl();
+    }
+    return RadarControl::m_instatnce;
+}
 
 RadarControl::RadarControl(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RadarControl)
 {
     ui->setupUi(this);
+    this->setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #283345,stop:0.5 #151c26 ,stop:1 #020407)");
 
-    // Displays TI Logo
-    QPixmap pic(":/ti_logo_trimmed.PNG");
-    if (pic.isNull())
-    {
-        qDebug() << "logo not Found";
-    }
-    else
-    {
-       ui->pushButton_Icon->setIcon(QIcon(pic));
-    }
-
-    localCount = 0;
     currIndex = 0;
 
     qDebug() << "QT version = " << QT_VERSION_STR;
-
     qint32 baudRate = 921600;
     FLAG_PAUSE = false;
     outFile.open(QIODevice::Append); // Open the file by default
-    AUTO_DETECT_COM_PORTS = ui->checkBox_AutoDetectPorts->isChecked();
+//    AUTO_DETECT_COM_PORTS = RadarConfig::GetInstance()->is_checkBox_AutoDetectPorts;
 
-    if (AUTO_DETECT_COM_PORTS)
-    {
-        /* Serial Port Settings */
-        serialPortFound_Flag = serialPortFind();
-        if (serialPortFound_Flag)
-        {
-            qDebug() << "Serial Port Found";
-            qDebug() << "Data Port Number is" << dataPortNum;
-            qDebug() << "User Port Number is" << userPortNum;
-        }
-    }
+//    if (AUTO_DETECT_COM_PORTS)
+//    {
+//        /* Serial Port Settings */
+//        RadarConfig::GetInstance()->serialPortFound_Flag = RadarConfig::GetInstance()->serialPortFind();
+//        if (RadarConfig::GetInstance()->serialPortFound_Flag)
+//        {
+//            qDebug() << "Serial Port Found";
+//            qDebug() << "Data Port Number is" << RadarConfig::GetInstance()->dataPortNum;
+//            qDebug() << "User Port Number is" << RadarConfig::GetInstance()->userPortNum;
+//        }
+//    }
 
-    serialRead = new QSerialPort(this);
-    dataPort_Connected = serialPortConfig(serialRead, baudRate, dataPortNum);
-    if (dataPort_Connected)
+
+    RadarConfig::GetInstance()->serialRead = new QSerialPort(this);
+    RadarConfig::GetInstance()->dataPort_Connected = serialPortConfig(RadarConfig::GetInstance()->serialRead, baudRate, RadarConfig::GetInstance()->dataPortNum);
+    if (RadarConfig::GetInstance()->dataPort_Connected)
         printf("Data port succesfully Open\n");
     else
         printf("data port did Not Open\n");
 
-    serialWrite = new QSerialPort(this);
-    userPort_Connected = serialPortConfig(serialWrite, 115200, userPortNum);
-    if (userPort_Connected)
+    RadarConfig::GetInstance()->serialWrite = new QSerialPort(this);
+
+    RadarConfig::GetInstance()->userPort_Connected = serialPortConfig(RadarConfig::GetInstance()->serialWrite, 115200, RadarConfig::GetInstance()->userPortNum);
+    if (RadarConfig::GetInstance()->userPort_Connected)
         printf("User port succesfully Open\n");
     else
         printf("User port did not Open \n");
 
-    connect(serialRead, SIGNAL(readyRead()), this, SLOT(serialRecieved()));
+    connect(RadarConfig::GetInstance()->serialRead, SIGNAL(readyRead()), this, SLOT(serialRecieved()));
 
     // Plot Settings
     QFont font;
@@ -167,7 +86,7 @@ RadarControl::RadarControl(QWidget *parent) :
     titleFont.setPointSize(15);
     titleFont.bold();
 
-    ui->checkBox_LoadConfig->setChecked(true);
+
 //    statusBar()->showMessage(tr("Ready"));
 
     xDistTimePlot.resize(NUM_PTS_DISTANCE_TIME_PLOT);
@@ -178,14 +97,14 @@ RadarControl::RadarControl(QWidget *parent) :
     ui->plot_RangeProfile->addGraph(0);
     ui->plot_RangeProfile->setBackground(this->palette().background().color());
     ui->plot_RangeProfile->axisRect()->setBackground(this->palette().background().color());
-    ui->plot_RangeProfile->xAxis->setLabel("Range (m)");
+    ui->plot_RangeProfile->xAxis->setLabel("距离 (m)");//Range (m)
     ui->plot_RangeProfile->xAxis->setLabelFont(font);
-    ui->plot_RangeProfile->yAxis->setLabel("Magnitude (a.u.)");
+    ui->plot_RangeProfile->yAxis->setLabel("幅度 (a.u.)");//Magnitude (a.u.)
     ui->plot_RangeProfile->yAxis->setLabelFont(font);
     ui->plot_RangeProfile->axisRect()->setupFullAxesBox();
     ui->plot_RangeProfile->xAxis->setRange(0, NUM_PTS_DISTANCE_TIME_PLOT);
 
-    QCPTextElement *myTitle = new QCPTextElement(ui->plot_RangeProfile, "Range Profile");
+    QCPTextElement *myTitle = new QCPTextElement(ui->plot_RangeProfile, "距离");//距离向nge Profile
     myTitle->setFont(titleFont);
     ui->plot_RangeProfile->plotLayout()->insertRow(0); // inserts an empty row above the default axis rect
     ui->plot_RangeProfile->plotLayout()->addElement(0, 0, myTitle);
@@ -193,15 +112,15 @@ RadarControl::RadarControl(QWidget *parent) :
     ui->phaseWfmPlot->addGraph(0);
     ui->phaseWfmPlot->setBackground(this->palette().background().color());
     ui->phaseWfmPlot->axisRect()->setBackground(this->palette().background().color());
-    ui->phaseWfmPlot->xAxis->setLabel("Frame (Index)");
+    ui->phaseWfmPlot->xAxis->setLabel("帧率 (Index)");//Frame (Index)
     ui->phaseWfmPlot->xAxis->setLabelFont(font);
-    ui->phaseWfmPlot->yAxis->setLabel("Displacement (a.u.)");
+    ui->phaseWfmPlot->yAxis->setLabel("偏移量 (a.u.)");//Displacement (a.u.)
     ui->phaseWfmPlot->yAxis->setLabelFont(font);
     ui->phaseWfmPlot->axisRect()->setupFullAxesBox();
     ui->phaseWfmPlot->xAxis->setRange(0, NUM_PTS_DISTANCE_TIME_PLOT);
     ui->phaseWfmPlot->graph(0)->setPen(myPen);
 
-    QCPTextElement *myTitle_ChestDisp = new QCPTextElement(ui->phaseWfmPlot, "Chest Displacement");
+    QCPTextElement *myTitle_ChestDisp = new QCPTextElement(ui->phaseWfmPlot, "胸部移位");//胸部移位Chest Displacement
     myTitle_ChestDisp->setFont(titleFont);
     ui->phaseWfmPlot->plotLayout()->insertRow(0); // inserts an empty row above the default axis rect
     ui->phaseWfmPlot->plotLayout()->addElement(0, 0, myTitle_ChestDisp);
@@ -210,13 +129,13 @@ RadarControl::RadarControl(QWidget *parent) :
     ui->BreathingWfmPlot->setBackground(this->palette().background().color());
     ui->BreathingWfmPlot->axisRect()->setBackground(this->palette().background().color());
     ui->BreathingWfmPlot->xAxis->setLabelFont(font);
-    ui->BreathingWfmPlot->yAxis->setLabel("Phase (radians)");
+    ui->BreathingWfmPlot->yAxis->setLabel("相位偏移值 (radians)");//Phase (radians)
     ui->BreathingWfmPlot->yAxis->setLabelFont(font);
     ui->BreathingWfmPlot->axisRect()->setupFullAxesBox();
     ui->BreathingWfmPlot->xAxis->setRange(0, NUM_PTS_DISTANCE_TIME_PLOT);
     ui->BreathingWfmPlot->graph(0)->setPen(myPen);
 
-    QCPTextElement *myTitle_BreathWfm = new QCPTextElement(ui->BreathingWfmPlot, "Breathing Waveform");
+    QCPTextElement *myTitle_BreathWfm = new QCPTextElement(ui->BreathingWfmPlot, "呼吸波形");//呼吸波形Breathing Waveform
     myTitle_BreathWfm->setFont(titleFont);
     ui->BreathingWfmPlot->plotLayout()->insertRow(0); // inserts an empty row above the default axis rect
     ui->BreathingWfmPlot->plotLayout()->addElement(0, 0, myTitle_BreathWfm);
@@ -225,7 +144,7 @@ RadarControl::RadarControl(QWidget *parent) :
     ui->heartWfmPlot->setBackground(this->palette().background().color());
     ui->heartWfmPlot->axisRect()->setBackground(this->palette().background().color());
     ui->heartWfmPlot->xAxis->setLabelFont(font);
-    ui->heartWfmPlot->yAxis->setLabel("Phase (Radians)");
+    ui->heartWfmPlot->yAxis->setLabel("相位偏移值 (radians)");//Phase (Radians)
     ui->heartWfmPlot->yAxis->setLabelFont(font);
     ui->heartWfmPlot->axisRect()->setupFullAxesBox();
     ui->heartWfmPlot->xAxis->setRange(0, NUM_PTS_DISTANCE_TIME_PLOT);
@@ -246,21 +165,22 @@ RadarControl::RadarControl(QWidget *parent) :
     ui->lcdNumber_Breathingrate->setAutoFillBackground(true);
     ui->lcdNumber_Breathingrate->setPalette(lcdpaletteBreathing);
 
-    QCPTextElement *myTitle_HeartWfm = new QCPTextElement(ui->heartWfmPlot, "Heart Waveform");
+    QCPTextElement *myTitle_HeartWfm = new QCPTextElement(ui->heartWfmPlot, "心跳波形");//心跳波形Heart Waveform
     myTitle_HeartWfm->setFont(titleFont);
     ui->heartWfmPlot->plotLayout()->insertRow(0); // inserts an empty row above the default axis rect
     ui->heartWfmPlot->plotLayout()->addElement(0, 0, myTitle_HeartWfm);
 
-    ui->lineEdit_ProfileBack->setText("xwr1642_profile_VitalSigns_20fps_Back.cfg");
-    ui->lineEdit_ProfileFront->setText("xwr1642_profile_VitalSigns_20fps_Front.cfg");
+//    ui->lineEdit_ProfileBack->setText("xwr1642_profile_VitalSigns_20fps_Back.cfg");
+//    ui->lineEdit_ProfileFront->setText("xwr1642_profile_VitalSigns_20fps_Front.cfg");
     //  ui->lineEdit_ProfileBack->setText("xwr1443_profile_VitalSigns_20fps_Back.cfg");
     //  ui->lineEdit_ProfileFront->setText("xwr1443_profile_VitalSigns_20fps_Front.cfg");
-    connect(this, SIGNAL(gui_statusChanged()), this, SLOT(gui_statusUpdate()));
+
+//    connect(this, SIGNAL(gui_statusChanged()), this, SLOT(gui_statusUpdate()));
 }
 
 void RadarControl::serialRecieved()
 {
-    QByteArray dataSerial = serialRead->readAll().toHex();
+    QByteArray dataSerial = RadarConfig::GetInstance()->serialRead->readAll().toHex();
     int dataSize = dataSerial.size();
     dataBuffer = dataBuffer.append(dataSerial);
     indexBuffer = indexBuffer + dataSize;
@@ -269,57 +189,57 @@ void RadarControl::serialRecieved()
 
 RadarControl::~RadarControl()
 {
-    serialWrite->write("sensorStop\n");
-    serialWrite->waitForBytesWritten(10000);
-    serialRead->close();
-    serialWrite->close();
+    RadarConfig::GetInstance()->serialWrite->write("sensorStop\n");
+    RadarConfig::GetInstance()->serialWrite->waitForBytesWritten(10000);
+    RadarConfig::GetInstance()->serialRead->close();
+    RadarConfig::GetInstance()->serialWrite->close();
     delete ui;
 }
 
 void RadarControl::on_pushButton_start_clicked()
 {
-    localCount = 0;
-    if (current_gui_status == gui_paused)
-    {
-        current_gui_status = gui_running;
-        emit gui_statusChanged();
-        return;
-    }
+    RadarConfig::GetInstance()->localCount = 0;
+//    if (RadarConfig::GetInstance()->current_gui_status == gui_paused)
+//    {
+//        RadarConfig::GetInstance()->current_gui_status = gui_running;
+//        emit gui_statusChanged();
+//        return;
+//    }
 
     FLAG_PAUSE = false;
-    AUTO_DETECT_COM_PORTS = ui->checkBox_AutoDetectPorts->isChecked();
+    AUTO_DETECT_COM_PORTS = RadarConfig::GetInstance()->is_checkBox_AutoDetectPorts;
 
     if (AUTO_DETECT_COM_PORTS)
     {
-        if (!FlagSerialPort_Connected)
+        if (!RadarConfig::GetInstance()->FlagSerialPort_Connected)
         {
-            serialPortFound_Flag = serialPortFind();
+            RadarConfig::GetInstance()->serialPortFound_Flag = RadarConfig::GetInstance()->serialPortFind();
 
-            if (!userPort_Connected)
+            if (!RadarConfig::GetInstance()->userPort_Connected)
             {
-                userPort_Connected = serialPortConfig(serialWrite, 115200, userPortNum);
+                RadarConfig::GetInstance()->userPort_Connected = serialPortConfig(RadarConfig::GetInstance()->serialWrite, 115200, RadarConfig::GetInstance()->userPortNum);
             }
 
-            if (!dataPort_Connected)
+            if (!RadarConfig::GetInstance()->dataPort_Connected)
             {
-                dataPort_Connected = serialPortConfig(serialRead, 921600, dataPortNum);
+                RadarConfig::GetInstance()->dataPort_Connected = serialPortConfig(RadarConfig::GetInstance()->serialRead, 921600, RadarConfig::GetInstance()->dataPortNum);
             }
         }
     }
     else
     {
-        userPortNum = ui->lineEdit_UART_port->text();
-        dataPortNum = ui->lineEdit_data_port->text();
-        userPort_Connected = serialPortConfig(serialWrite, 115200, userPortNum);
-        dataPort_Connected = serialPortConfig(serialRead, 921600, dataPortNum);
+        RadarConfig::GetInstance()->userPortNum = RadarConfig::GetInstance()->tx_lineEdit_UART_port;
+        RadarConfig::GetInstance()->dataPortNum = RadarConfig::GetInstance()->tx_lineEdit_data_port;
+        RadarConfig::GetInstance()->userPort_Connected = serialPortConfig(RadarConfig::GetInstance()->serialWrite, 115200, RadarConfig::GetInstance()->userPortNum);
+        RadarConfig::GetInstance()->dataPort_Connected = serialPortConfig(RadarConfig::GetInstance()->serialRead, 921600, RadarConfig::GetInstance()->dataPortNum);
     }
 
-    if (ui->checkBox_LoadConfig->isChecked())
+    if (RadarConfig::GetInstance()->is_checkBox_LoadConfig)
     {
 
         // Read the Configuration file path from the GUI
 
-        QString profileBack = ui->lineEdit_ProfileBack->text();
+        QString profileBack = RadarConfig::GetInstance()->tx_lineEdit_ProfileBack;
         qDebug() << "Configuration File Name Read from the GUI is %s/n" << profileBack;
 
         DialogSettings myDialogue;
@@ -330,9 +250,9 @@ void RadarControl::on_pushButton_start_clicked()
         QString filenameText = currDir.path();
         filenameText.append("/profiles/"); // Reads from this path
 
-        if (ui->radioButton_BackMeasurements->isChecked())
+        if (RadarConfig::GetInstance()->is_radioButton_BackMeasurements)
         {
-            filenameText.append(ui->lineEdit_ProfileBack->text()); // Reads from this path
+            filenameText.append(RadarConfig::GetInstance()->tx_lineEdit_ProfileBack); // Reads from this path
             qDebug() << "Configuration File Path is %s/n" << filenameText;
 
             HEART_PLOT_MAX_YAXIS = myDialogue.getHeartWfm_yAxisMax();
@@ -343,7 +263,7 @@ void RadarControl::on_pushButton_start_clicked()
         }
         else
         {
-            filenameText.append(ui->lineEdit_ProfileFront->text()); // Reads from this path
+            filenameText.append(RadarConfig::GetInstance()->tx_lineEdit_ProfileFront); // Reads from this path
             qDebug() << "Configuration File Path is %s/n" << filenameText;
             thresh_breath = 10;
             thresh_heart = 0.1;
@@ -362,9 +282,9 @@ void RadarControl::on_pushButton_start_clicked()
             {
                 QString line = inStream.readLine(); // Read a line from the input Text File
                 qDebug() << line;
-                serialWrite->write(line.toUtf8().constData());
-                serialWrite->write("\n");
-                serialWrite->waitForBytesWritten(10000);
+                RadarConfig::GetInstance()->serialWrite->write(line.toUtf8().constData());
+                RadarConfig::GetInstance()->serialWrite->write("\n");
+                RadarConfig::GetInstance()->serialWrite->waitForBytesWritten(10000);
 //                Sleep(1000);
             }
             infile.close();
@@ -467,23 +387,22 @@ void RadarControl::on_pushButton_start_clicked()
     }
 
     ui->heartWfmPlot->yAxis->setRange(-HEART_PLOT_MAX_YAXIS, HEART_PLOT_MAX_YAXIS);
-    current_gui_status = gui_running;
-    emit gui_statusChanged();
+//    RadarConfig::GetInstance()->current_gui_status = gui_running;
+//    emit gui_statusChanged();
 }
 
 void RadarControl::on_pushButton_stop_clicked()
 {
-    serialWrite->write("sensorStop\n");
-    ui->checkBox_LoadConfig->setChecked(true);
-    current_gui_status = gui_stopped;
-    emit gui_statusChanged();
+    RadarConfig::GetInstance()->serialWrite->write("sensorStop\n");
+    RadarConfig::GetInstance()->current_gui_status = gui_stopped;
+//    emit gui_statusChanged();
 }
 
 void RadarControl::on_pushButton_Refresh_clicked()
 {
-    serialWrite->write("guiMonitor 0 0 0 1\n");
-    serialWrite->waitForBytesWritten(10000);
-    localCount = 0;
+    RadarConfig::GetInstance()->serialWrite->write("guiMonitor 0 0 0 1\n");
+    RadarConfig::GetInstance()->serialWrite->waitForBytesWritten(10000);
+    RadarConfig::GetInstance()->localCount = 0;
 //    Sleep(2000);
 }
 
@@ -548,48 +467,26 @@ qint16 RadarControl::parseValueInt16(QByteArray data, int valuePos, int valueSiz
     return parseValueOut;
 }
 
-bool RadarControl::serialPortFind()
-{
-    DialogSettings dialogBoxSerial;
-    // Find available COM ports on the computer
-    QString portNum;
-    foreach (const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts())
-    {
-        portNum = serialPortInfo.portName();
-        dialogBoxSerial.setDataComPortNum(portNum);
-        dialogBoxSerial.setUserComPortNum(portNum);
-    }
-
-    dataPortNum = dialogBoxSerial.getDataComPortNum();
-    userPortNum = dialogBoxSerial.getUserComPortNum();
-
-    ui->lineEdit_data_port->setText(dataPortNum);
-    ui->lineEdit_UART_port->setText(userPortNum);
-    if (portNum.isEmpty())
-        return 0;
-    else
-        return 1;
-}
 
 bool RadarControl::serialPortConfig(QSerialPort *serial, qint32 baudRate, QString dataPortNum)
 {
-    serial->setPortName(dataPortNum);
+    serial->setPortName(RadarConfig::GetInstance()->dataPortNum);
 
     if (serial->open(QIODevice::ReadWrite))
     {
-        FlagSerialPort_Connected = 1;
+        RadarConfig::GetInstance()->FlagSerialPort_Connected = 1;
     }
     else
     {
-        FlagSerialPort_Connected = 0;
-        return FlagSerialPort_Connected;
+        RadarConfig::GetInstance()->FlagSerialPort_Connected = 0;
+        return RadarConfig::GetInstance()->FlagSerialPort_Connected;
     }
     serial->setBaudRate(baudRate);
     serial->setDataBits(QSerialPort::Data8);
     serial->setParity(QSerialPort::NoParity);
     serial->setStopBits(QSerialPort::OneStop);
     serial->setFlowControl(QSerialPort::NoFlowControl);
-    return FlagSerialPort_Connected;
+    return RadarConfig::GetInstance()->FlagSerialPort_Connected;
 }
 
 void RadarControl::processData()
@@ -605,8 +502,9 @@ void RadarControl::processData()
     static float xk = 0; // State Variable
 
     extern bool FileSavingFlag;
-    FileSavingFlag = ui->checkBox_SaveData->isChecked();
-    localCount = localCount + 1;
+    FileSavingFlag =RadarConfig::GetInstance()->is_checkBox_SaveData;
+//    FileSavingFlag = ui->checkBox_SaveData->isChecked();
+    RadarConfig::GetInstance()->localCount = RadarConfig::GetInstance()->localCount + 1;
 
     while (dataBuffer.size() >= demoParams.totalPayloadSize_nibbles)
     {
@@ -615,12 +513,12 @@ void RadarControl::processData()
 
         QByteArray searchStr("0201040306050807"); // Search String Array
         int dataStartIndex = dataBuffer.indexOf(searchStr);
-        int indexTemp = localCount % NUM_PTS_DISTANCE_TIME_PLOT;
+        int indexTemp = RadarConfig::GetInstance()->localCount % NUM_PTS_DISTANCE_TIME_PLOT;
 
         if (dataStartIndex == -1)
         {
             MagicOk = 0;
-            qDebug() << " Magic Word Not Found --- local Count:  " << localCount << "DataBufferSize" << dataBuffer.size();
+            qDebug() << " Magic Word Not Found --- local Count:  " << RadarConfig::GetInstance()->localCount << "DataBufferSize" << dataBuffer.size();
             break;
         }
         else
@@ -640,7 +538,7 @@ void RadarControl::processData()
             else
             {
                 MagicOk = 0;
-                qDebug() << " Data size is not OK --- local Count:  " << localCount << "DataBufferSize" << dataBuffer.size();
+                qDebug() << " Data size is not OK --- local Count:  " << RadarConfig::GetInstance()->localCount << "DataBufferSize" << dataBuffer.size();
                 qDebug() << data.size();
 //                statusBar()->showMessage(tr("Frames are being missed. Please stop and Start the Program"));
             }
@@ -725,17 +623,17 @@ void RadarControl::processData()
                 heartRateEstDisplay = heartRate_Pk;
             }
 
-            if (ui->checkBox_xCorr->isChecked())
+            if (RadarConfig::GetInstance()->is_checkBox_xCorr)
             {
                 heartRateEstDisplay = heartRate_xCorr;
             }
 
-            if (ui->checkBox_FFT->isChecked())
+            if (RadarConfig::GetInstance()->is_checkBox_FFT)
             {
                 heartRateEstDisplay = heartRate_FFT;
             }
 
-            if (ui->radioButton_BackMeasurements->isChecked())
+            if (RadarConfig::GetInstance()->is_radioButton_BackMeasurements)
             {
 
 #ifdef HEAURITICS_APPROACH1
@@ -749,15 +647,15 @@ void RadarControl::processData()
                     heartRateEstDisplay = heartRate_xCorr;
                 }
 
-                heartRateBuffer.insert(2 * (localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE / 2), heartRateEstDisplay);
+                heartRateBuffer.insert(2 * (RadarConfig::GetInstance()->localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE / 2), heartRateEstDisplay);
 
                 if (ui->checkBox_FFT)
                 {
-                    heartRateBuffer.insert(2 * (localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE / 2) + 1, heartRateEstDisplay);
+                    heartRateBuffer.insert(2 * (RadarConfig::GetInstance()->localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE / 2) + 1, heartRateEstDisplay);
                 }
                 else
                 {
-                    heartRateBuffer.insert(2 * (localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE / 2) + 1, heartRate_FFT_4Hz);
+                    heartRateBuffer.insert(2 * (RadarConfig::GetInstance()->localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE / 2) + 1, heartRate_FFT_4Hz);
                 }
 #endif
 
@@ -790,10 +688,10 @@ void RadarControl::processData()
             }
             else
             {
-                heartRateBuffer.insert(localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE, heartRateEstDisplay);
+                heartRateBuffer.insert(RadarConfig::GetInstance()->localCount % HEART_RATE_EST_MEDIAN_FLT_SIZE, heartRateEstDisplay);
             }
 
-            if (gui_paused != current_gui_status)
+            if (gui_paused != RadarConfig::GetInstance()->current_gui_status)
             {
                 QList<float> heartRateBufferSort = QList<float>::fromVector(heartRateBuffer);
                 qSort(heartRateBufferSort.begin(), heartRateBufferSort.end());
@@ -818,7 +716,7 @@ void RadarControl::processData()
                 }
                 // Further Filtering of the Final Heart-rate Estimates
 
-                heartRateOutBufferFinal.insert(localCount % (HEART_RATE_EST_FINAL_OUT_SIZE), heartRate_Out);
+                heartRateOutBufferFinal.insert(RadarConfig::GetInstance()->localCount % (HEART_RATE_EST_FINAL_OUT_SIZE), heartRate_Out);
                 const auto mean = std::accumulate(heartRateOutBufferFinal.begin(), heartRateOutBufferFinal.end(), .0) / heartRateOutBufferFinal.size();
                 double sumMAD;
                 double bufferSTD;
@@ -880,7 +778,7 @@ void RadarControl::processData()
                     ui->lcdNumber_HeartRate->setPalette(lcdpaletteHeartRate);
                 }
 
-                if (ui->checkBox_displayPlots->isChecked())
+                if (RadarConfig::GetInstance()->is_checkBox_displayPlots)
                 {
                     if (indexTemp == 0)
                     {
@@ -1063,38 +961,10 @@ void RadarControl::processData()
     }     //Magic-OK if ends
 }
 
-void RadarControl::gui_statusUpdate()
-{
-    if (current_gui_status == gui_running)
-    {
-        ui->pushButton_start->setStyleSheet("background-color: red");
-        ui->pushButton_stop->setStyleSheet("background-color: none");
-        ui->pushButton_pause->setStyleSheet("background-color: none");
 
-//        statusBar()->showMessage(tr("Sensor Running"));
-    }
-
-    if (current_gui_status == gui_stopped)
-    {
-        ui->pushButton_stop->setStyleSheet("background-color: red");
-        ui->pushButton_start->setStyleSheet("background-color: none");
-        ui->pushButton_pause->setStyleSheet("background-color: none");
-//        statusBar()->showMessage(tr("Sensor Stopped"));
-        qDebug() << "Sensor is Stopped";
-//        statusBar()->showMessage(tr("Sensor Stopped"));
-    }
-    if (current_gui_status == gui_paused)
-    {
-        ui->pushButton_stop->setStyleSheet("background-color: none");
-        ui->pushButton_start->setStyleSheet("background-color: none");
-        ui->pushButton_pause->setStyleSheet("background-color: red");
-//        statusBar()->showMessage(tr("GUI is Paused Stopped"));
-    }
-}
 
 void RadarControl::on_pushButton_pause_clicked()
 {
-    localCount = 0;
     for (unsigned int i = 0; i < NUM_PTS_DISTANCE_TIME_PLOT; i++)
     {
         xDistTimePlot[i] = 0;
@@ -1102,6 +972,7 @@ void RadarControl::on_pushButton_pause_clicked()
         heartWfmBuffer[i] = 0;
         breathingWfmBuffer[i] = 0;
     }
-    current_gui_status = gui_paused;
-    emit gui_statusChanged();
+}
+void RadarControl::testtxt(){
+ this->ui->lcdNumber_Breathingrate->display("123");
 }

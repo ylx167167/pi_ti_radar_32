@@ -26,18 +26,11 @@ DEFINES += QCUSTOMPLOT_USE_OPENGL
 SOURCES +=main.cpp\
     dialogsetting/dialogsettings.cpp \
     flowlayout/flowlayout.cpp \
+    login/login.cpp \
     maincontent/controltabwidget.cpp \
     maincontent/controltreewidget.cpp \
     maincontent/controlwidget/bannacontrol/bannacontrol.cpp \
     maincontent/controlwidget/bannacontrol/bannawidget.cpp \
-    maincontent/controlwidget/cylindercontrol/cylindercontrol.cpp \
-    maincontent/controlwidget/cylindercontrol/cylinderwidget.cpp \
-    maincontent/controlwidget/framecontrol/framecontrol.cpp \
-    maincontent/controlwidget/framecontrol/framewidget.cpp \
-    maincontent/controlwidget/listcontrol/listcontrol.cpp \
-    maincontent/controlwidget/listcontrol/listwidget.cpp \
-    maincontent/controlwidget/movecontrol/movecontrol.cpp \
-    maincontent/controlwidget/movecontrol/movewidget.cpp \
     maincontent/controlwidget/openglcontrol/cameralibrary.cpp \
     maincontent/controlwidget/openglcontrol/objectfactory.cpp \
     maincontent/controlwidget/openglcontrol/objectmodel/objectcube.cpp \
@@ -46,18 +39,12 @@ SOURCES +=main.cpp\
     maincontent/controlwidget/openglcontrol/openglwidget.cpp \
     maincontent/controlwidget/openglcontrol/shaderlibrary.cpp \
     maincontent/controlwidget/openglcontrol/texturelibrary.cpp \
-    maincontent/controlwidget/processcontrol/processcontrol.cpp \
-    maincontent/controlwidget/processcontrol/processwidget.cpp \
-    maincontent/controlwidget/progresscontrol/progresscontrol.cpp \
-    maincontent/controlwidget/progresscontrol/progresswidget.cpp \
     maincontent/controlwidget/radarcontrol/radarcontrol.cpp \
-    maincontent/controlwidget/slidercontrol/slidercontrol.cpp \
-    maincontent/controlwidget/slidercontrol/sliderwidget.cpp \
     maincontent/controlwidget/tablecontrol/tablecontrol.cpp \
-    maincontent/controlwidget/tablecontrol/tablewidget.cpp \
     mainwindow.cpp \
     numberanimation/numberanimation.cpp \
     qcustomplot/qcustomplot.cpp \
+    radarconfig.cpp \
     screen/mainobject.cpp \
     screen/splashscreen.cpp \
     systemtray/systemtray.cpp \
@@ -66,44 +53,25 @@ SOURCES +=main.cpp\
 
 FORMS += maincontent/controltabwidget.ui \
     dialogsetting/dialogsettings.ui \
+    login/login.ui \
     maincontent/controltreewidget.ui \
     maincontent/controlwidget/bannacontrol/bannacontrol.ui \
     maincontent/controlwidget/bannacontrol/bannawidget.ui \
-    maincontent/controlwidget/cylindercontrol/cylindercontrol.ui \
-    maincontent/controlwidget/cylindercontrol/cylinderwidget.ui \
-    maincontent/controlwidget/framecontrol/framewidget.ui \
-    maincontent/controlwidget/listcontrol/listcontrol.ui \
     maincontent/controlwidget/listcontrol/listwidget.ui \
-    maincontent/controlwidget/movecontrol/movecontrol.ui \
-    maincontent/controlwidget/movecontrol/movewidget.ui \
     maincontent/controlwidget/openglcontrol/openglwidget.ui \
-    maincontent/controlwidget/processcontrol/processcontrol.ui \
-    maincontent/controlwidget/processcontrol/processwidget.ui \
-    maincontent/controlwidget/progresscontrol/progresscontrol.ui \
-    maincontent/controlwidget/progresscontrol/progresswidget.ui \
     maincontent/controlwidget/radarcontrol/radarcontrol.ui \
-    maincontent/controlwidget/slidercontrol/slidercontrol.ui \
-    maincontent/controlwidget/slidercontrol/sliderwidget.ui \
     maincontent/controlwidget/tablecontrol/tablecontrol.ui \
-    maincontent/controlwidget/tablecontrol/tablewidget.ui \
     mainwindow.ui \
     titlebar/maintitlebar.ui
 
 HEADERS += flowlayout/flowlayout.h \
     dialogsetting/dialogsettings.h \
     globaldef.hpp \
+    login/login.h \
     maincontent/controltabwidget.h \
     maincontent/controltreewidget.h \
     maincontent/controlwidget/bannacontrol/bannacontrol.h \
     maincontent/controlwidget/bannacontrol/bannawidget.h \
-    maincontent/controlwidget/cylindercontrol/cylindercontrol.h \
-    maincontent/controlwidget/cylindercontrol/cylinderwidget.h \
-    maincontent/controlwidget/framecontrol/framecontrol.h \
-    maincontent/controlwidget/framecontrol/framewidget.h \
-    maincontent/controlwidget/listcontrol/listcontrol.h \
-    maincontent/controlwidget/listcontrol/listwidget.h \
-    maincontent/controlwidget/movecontrol/movecontrol.h \
-    maincontent/controlwidget/movecontrol/movewidget.h \
     maincontent/controlwidget/openglcontrol/cameralibrary.h \
     maincontent/controlwidget/openglcontrol/objectfactory.h \
     maincontent/controlwidget/openglcontrol/objectmodel/objectcube.h \
@@ -113,18 +81,12 @@ HEADERS += flowlayout/flowlayout.h \
     maincontent/controlwidget/openglcontrol/openglwidget.h \
     maincontent/controlwidget/openglcontrol/shaderlibrary.h \
     maincontent/controlwidget/openglcontrol/texturelibrary.h \
-    maincontent/controlwidget/processcontrol/processcontrol.h \
-    maincontent/controlwidget/processcontrol/processwidget.h \
-    maincontent/controlwidget/progresscontrol/progresscontrol.h \
-    maincontent/controlwidget/progresscontrol/progresswidget.h \
     maincontent/controlwidget/radarcontrol/radarcontrol.h \
-    maincontent/controlwidget/slidercontrol/slidercontrol.h \
-    maincontent/controlwidget/slidercontrol/sliderwidget.h \
     maincontent/controlwidget/tablecontrol/tablecontrol.h \
-    maincontent/controlwidget/tablecontrol/tablewidget.h \
     mainwindow.h \
     numberanimation/numberanimation.h \
     qcustomplot/qcustomplot.h \
+    radarconfig.h \
     screen/mainobject.h \
     screen/splashscreen.h \
     systemtray/systemtray.h \
@@ -139,5 +101,6 @@ RESOURCES += \
 DISTFILES += \
     res/image/other/splash.png \
     res/image/other/splash2.jpg \
-    res/image/other/splash3.png
+    res/image/other/splash3.png \
+    res/stylesheet/stylesheet.qss
 #RC_FILE += myapp.rc

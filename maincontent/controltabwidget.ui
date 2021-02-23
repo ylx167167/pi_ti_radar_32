@@ -41,7 +41,7 @@
        <string> 监控中心</string>
       </attribute>
      </widget>
-     <widget class="TableWidget" name="tabTableWidget">
+     <widget class="TableControl" name="tabTableWidget">
       <attribute name="title">
        <string>设置</string>
       </attribute>
@@ -58,15 +58,15 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>TableWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">maincontent/controlwidget/tablecontrol/tablewidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>RadarControl</class>
    <extends>QWidget</extends>
    <header location="global">maincontent/controlwidget/radarcontrol/radarcontrol.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TableControl</class>
+   <extends>QWidget</extends>
+   <header location="global">maincontent/controlwidget/tablecontrol/tablecontrol.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

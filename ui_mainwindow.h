@@ -37,10 +37,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1448, 999);
-        MainWindow->setStyleSheet(QString::fromUtf8(""));
+        MainWindow->resize(1630, 830);
+        MainWindow->setStyleSheet(QString::fromUtf8("QWidget,QFrame\n"
+"{\n"
+"background-color: #ffffff;\n"
+"}"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        centralWidget->setStyleSheet(QString::fromUtf8(""));
         verticalLayout = new QVBoxLayout(centralWidget);
         verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -50,6 +54,10 @@ public:
         widgetTitle->setObjectName(QString::fromUtf8("widgetTitle"));
         widgetTitle->setMinimumSize(QSize(0, 50));
         widgetTitle->setMaximumSize(QSize(16777215, 50));
+        widgetTitle->setStyleSheet(QString::fromUtf8("QWidget,QFrame\n"
+"{\n"
+"background-color: #1A1A1A;\n"
+"}"));
 
         verticalLayout->addWidget(widgetTitle);
 
@@ -62,11 +70,16 @@ public:
         widgetTree->setEnabled(true);
         widgetTree->setMinimumSize(QSize(240, 0));
         widgetTree->setMaximumSize(QSize(240, 16777215));
+        widgetTree->setStyleSheet(QString::fromUtf8("QWidget,QFrame\n"
+"{\n"
+"background-color: #1A1A1A;\n"
+"}"));
 
         horizontalLayout->addWidget(widgetTree);
 
         widgetTab = new ControlTabWidget(centralWidget);
         widgetTab->setObjectName(QString::fromUtf8("widgetTab"));
+        widgetTab->setStyleSheet(QString::fromUtf8(""));
 
         horizontalLayout->addWidget(widgetTab);
 
@@ -76,6 +89,10 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
+        statusBar->setStyleSheet(QString::fromUtf8("QWidget,QFrame\n"
+"{\n"
+"background-color: #1A1A1A;\n"
+"}"));
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);

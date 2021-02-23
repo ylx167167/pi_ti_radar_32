@@ -16,7 +16,7 @@
 #include <QtWidgets/QWidget>
 #include <maincontent/controlwidget/bannacontrol/bannawidget.h>
 #include <maincontent/controlwidget/radarcontrol/radarcontrol.h>
-#include <maincontent/controlwidget/tablecontrol/tablewidget.h>
+#include <maincontent/controlwidget/tablecontrol/tablecontrol.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -27,7 +27,7 @@ public:
     QTabWidget *tabWidgetControl;
     BannaWidget *banana;
     RadarControl *radar;
-    TableWidget *tabTableWidget;
+    TableControl *tabTableWidget;
 
     void setupUi(QWidget *ControlTabWidget)
     {
@@ -43,9 +43,9 @@ public:
         banana->setObjectName(QString::fromUtf8("banana"));
         tabWidgetControl->addTab(banana, QString());
         radar = new RadarControl();
-        radar->setObjectName(QString::fromUtf8("tabPlot"));
+        radar->setObjectName(QString::fromUtf8("radar"));
         tabWidgetControl->addTab(radar, QString());
-        tabTableWidget = new TableWidget();
+        tabTableWidget = new TableControl();
         tabTableWidget->setObjectName(QString::fromUtf8("tabTableWidget"));
         tabWidgetControl->addTab(tabTableWidget, QString());
 

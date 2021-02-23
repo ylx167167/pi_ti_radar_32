@@ -31,17 +31,6 @@
 //页面绑定定义
 enum WidgetTabType
 {
-//    TAB_BANNA,
-//    TAB_CYLINDER,
-//    TAB_PROGRESS,
-//    TAB_FRAME,
-//    TAB_CUSTOM_PLOT,
-//    TAB_LIST,
-//    TAB_MOVE_BUTTON,
-//    TAB_TABLE_WIDGET,
-//    TAB_SLIDER,
-//    TAB_PROCESS,
-//    TAB_OPENGL,
     TAB_MAIN,
     TAB_MONITOR,
     TAB_SET,
